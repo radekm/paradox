@@ -1,0 +1,44 @@
+% unr, bad
+
+fof(unr_and_bad, axiom,
+  min(unr) & min(bad) & unr != bad
+).
+
+% nat
+
+fof(zero_and_succ, axiom,
+  ![A,B,X] : ((min(A) & min(B) & zero = A & succ(X) = B) => A = B)
+).
+
+fof(zero_and_unr_bad, axiom,
+  ![A,B] : ((min(A) & zero = A) => (A != unr & A != bad))
+).
+
+fof(succ_and_unr_bad, axiom,
+  ![A,B,X] : ((min(A) & succ(X) = A) => (A != unr & A != bad))
+).
+
+% id over nat
+
+fof(zero_and_succ, axiom,
+  ![A,Y] : ((min(Y) & zero = A & id(A) = Y) => Y = zero)
+).
+
+fof(zero_and_succ, axiom,
+  ![A,X,Y] : ((min(Y) & succ(X) = A & id(A) = Y) => Y = succ(id(X)))
+).
+
+fof(zero_and_succ, axiom,
+  ![A,Y] : ((min(Y) & bad = A & id(A) = Y) => Y = bad)
+).
+
+fof(zero_and_succ, axiom,
+  ![A,Y] : ((min(Y) & id(A) = Y) => (A = zero | A = succ(prev(A)) | A = bad | Y = unr))
+).
+
+fof(zero_and_succ, axiom,
+  ![A,Y] : ((min(Y) & id(A) = Y) => min(A))
+).
+
+
+

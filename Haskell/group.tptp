@@ -1,0 +1,13 @@
+
+fof( axiom, axiom, (
+  ![X,Y1,Y2] : (op(X,Y1)=op(X,Y2) => Y1=Y2)
+)).
+
+fof( axiom, axiom, (
+  ![X1,X2,Y] : (op(X1,Y)=op(X2,Y) => X1=X2)
+)).
+
+fof( axiom, axiom, (
+  op(a,b) != op(b,a)
+)).
+

@@ -1,0 +1,44 @@
+% original problem
+
+%cnf(axiom, axiom,
+%  ~p(X,X)
+%).
+
+cnf(axiom, axiom,
+  ~p(X,Y) | p(X,s(Y))
+).
+
+cnf(axiom, axiom,
+  p(X,s(X))
+).
+
+% strengthening
+
+cnf(axiom, axiom,
+  ~p(X,Y) | Y = s(X) | Y = s(t(Y))
+).
+
+cnf(axiom, axiom,
+  ~p(X,Y) | Y = s(X) | p(X,t(Y))
+).
+
+% herbrand axioms
+
+cnf(axiom, axiom,
+  t(s(X)) = X
+).
+
+cnf(axiom, axiom,
+  s(X) != a
+).
+
+% question (by induction)
+
+cnf(axiom, axiom,
+  ~p(x,x)
+).
+
+cnf(axiom, axiom,
+  p(s(x),s(x))
+).
+

@@ -1,0 +1,85 @@
+cnf(axiom, axiom,
+  q1(p1)
+).
+
+cnf(axiom, axiom,
+  q1(p2)
+).
+
+cnf(axiom, axiom,
+  q1(p3)
+).
+
+cnf(axiom, axiom,
+  q1(p4)
+).
+
+cnf(axiom, axiom,
+  ~q1(p5)
+).
+
+cnf(axiom, axiom,
+  ~q1(p6)
+).
+
+cnf(axiom, axiom,
+  q2(p1)
+).
+
+cnf(axiom, axiom,
+  q2(p2)
+).
+
+cnf(axiom, axiom,
+  ~q2(p3)
+).
+
+cnf(axiom, axiom,
+  ~q2(p4)
+).
+
+cnf(axiom, axiom,
+  q2(p5)
+).
+
+cnf(axiom, axiom,
+  q2(p6)
+).
+
+cnf(axiom, axiom,
+  q3(p1)
+).
+
+cnf(axiom, axiom,
+  ~q3(p2)
+).
+
+cnf(axiom, axiom,
+  q3(p3)
+).
+
+cnf(axiom, axiom,
+  ~q3(p4)
+).
+
+cnf(axiom, axiom,
+  q3(p5)
+).
+
+cnf(axiom, axiom,
+  ~q3(p6)
+).
+
+%cnf(axiom, axiom,
+%  ~know(X,Y) | know(Y,X)
+%).
+
+cnf(axiom, axiom,
+  X = Y | Y = Z | X = Z | know(X,Y) | know(Y,Z) | know(X,Z)
+).
+
+cnf(axiom, axiom,
+  X = Y | Y = Z | X = Z | ~know(X,Y) | ~know(Y,Z) | ~know(X,Z)
+).
+
+

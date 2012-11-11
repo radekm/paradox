@@ -1,0 +1,66 @@
+%% model
+
+cnf(axiom, axiom,
+  d1 != d2
+).
+
+cnf(axiom, axiom,
+  d3 != d2
+).
+
+cnf(axiom, axiom,
+  d1 != d3
+).
+
+cnf(axiom, axiom,
+  f(d1) = d2
+).
+
+cnf(axiom, axiom,
+  f(d2) = d3
+).
+
+%% conjecture
+
+cnf(axiom, axiom,
+%  app(G,f(d1)) != d1 | app(G,f(d2)) != d2 | $answer(G) | G != \y . app(eps,appL(appR(eq,x),y)
+  app(G,f(d1)) != d1 | app(G,f(d2)) != d2 | $answer(G) | G != 
+).
+
+%% combinators
+
+cnf(axiom, axiom,
+  app(funf,X) = f(X)
+).
+
+cnf(axiom, axiom,
+  app(P,app(eps,P)) = true | app(P,X) != true
+).
+
+cnf(axiom, axiom,
+  app(app(eq,X),Y) != true | X=Y
+).
+
+cnf(axiom, axiom,
+  app(app(eq,X),X) = true
+).
+
+cnf(axiom, axiom,
+  app(x,X) = X
+).
+
+cnf(axiom, axiom,
+  app(k(F),X) = F
+).
+
+cnf(axiom, axiom,
+  app(hop(F,G),X) = app(app(F,X),G)
+).
+
+cnf(axiom, axiom,
+  app(cmp(F,G),X) = app(F,app(G,X))
+).
+
+cnf(axiom, axiom,
+  app(s(F,G),X) = app(app(F,X),app(G,X))
+).

@@ -1,0 +1,3 @@
+fof(a_0, axiom, ![Z] : ![Y] : ![X] : ![U] : multiply(multiply(X,Y),multiply(Z,U)) = multiply(multiply(X,Z),multiply(Y,U))).
+fof(a_1, axiom, multiply(an_element,an_element) = an_element).
+fof(a_2, axiom, multiply(multiply(a,multiply(d,c)),multiply(multiply(b,e),f)) != multiply(multiply(a,multiply(b,c)),multiply(multiply(d,e),f))).

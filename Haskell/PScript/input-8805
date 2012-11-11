@@ -1,0 +1,11 @@
+fof(a_0, axiom, lives(sk_x00)).
+fof(a_1, axiom, ![X] : (X = charles | X = agatha | X = butler | ~lives(X))).
+fof(a_2, axiom, ![Y] : ![X] : (hates(X,Y) | ~killed(X,Y))).
+fof(a_3, axiom, ![Y] : ![X] : (~killed(X,Y) | ~richer(X,Y))).
+fof(a_4, axiom, ![X] : (~hates(charles,X) | ~hates(agatha,X))).
+fof(a_5, axiom, ![X] : (hates(agatha,X) | X = butler)).
+fof(a_6, axiom, ![X] : (hates(butler,X) | richer(X,agatha))).
+fof(a_7, axiom, ![X] : (hates(butler,X) | ~hates(agatha,X))).
+fof(a_8, axiom, ![X] : ~hates(X,sk_x010(X))).
+fof(a_9, axiom, agatha != butler).
+fof(a_10, axiom, ~killed(agatha,agatha)).

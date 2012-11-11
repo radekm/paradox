@@ -1,0 +1,124 @@
+% AXIOMS: unr, bad
+
+fof(unr_and_bad, axiom,
+  min(unr) & min(bad) & cf(unr) & ~cf(bad)
+).
+
+% DATATYPE: nat
+
+fof(zero_and_succ, axiom,
+  ![A,B,X] : ((min(A) & min(B) & zero = A & succ(X) = B) => A != B)
+).
+
+fof(zero_and_unr_bad, axiom,
+  ![A] : ((min(A) & zero = A) => (A != unr & A != bad))
+).
+
+fof(succ_and_unr_bad, axiom,
+  ![A,X] : ((min(A) & succ(X) = A) => (A != unr & A != bad))
+).
+
+fof(succ_sel, axiom,
+  ![A,X] : ((min(A) & succ(X) = A) => (X = $weak(prev(A))))
+).
+
+fof(zero_cf, axiom,
+  ![A] : ((min(A) & zero = A) => cf(A))
+).
+
+fof(succ_cf, axiom,
+  ![A,X] : ((min(A) & succ(X) = A) => (cf(X) <=> cf(A)))
+).
+
+% DATATYPE: bool
+
+fof(false_and_true, axiom,
+  ![A,B] : ((min(A) & min(B) & false = A & true = B) => A != B)
+).
+
+fof(false_and_unr_bad, axiom,
+  ![A] : ((min(A) & false = A) => (A != unr & A != bad))
+).
+
+fof(true_and_unr_bad, axiom,
+  ![A] : ((min(A) & true = A) => (A != unr & A != bad))
+).
+
+fof(false_cf, axiom,
+  ![A] : ((min(A) & false = A) => cf(A))
+).
+
+fof(true_cf, axiom,
+  ![A] : ((min(A) & true = A) => cf(A))
+).
+
+% DEFINITION: leq over nat
+
+fof(leq_zero, axiom,
+  ![A,B,Y] : ((min(Y) & zero = A & leq(A,B) = Y) => Y = true)
+).
+
+fof(leq_succ, axiom,
+  ![A,B,X,Y] : ((min(Y) & succ(X) = A & leq(A,B) = Y) => Y = $weak(leq_succ(B,X)))
+).
+
+fof(leq_bad, axiom,
+  ![A,B,Y] : ((min(Y) & bad = A & leq(A,B) = Y) => Y = bad)
+).
+
+fof(leq_cases, axiom,
+  ![A,B,Y] : ((min(Y) & leq(A,B) = Y) => (min(A) & (A = zero | A = $weak(succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% DEFINITION: leq_succ
+
+fof(leq_succ_zero, axiom,
+  ![A,B,Y] : ((min(Y) & zero = A & leq_succ(A,B) = Y) => Y = false)
+).
+
+fof(leq_succ_succ, axiom,
+  ![A,B,X,Y] : ((min(Y) & succ(X) = A & leq_succ(A,B) = Y) => Y = $weak(leq(B,X)))
+).
+
+fof(leq_succ_bad, axiom,
+  ![A,B,Y] : ((min(Y) & bad = A & leq_succ(A,B) = Y) => Y = bad)
+).
+
+fof(leq_succ_cases, axiom,
+  ![A,B,Y] : ((min(Y) & leq_succ(A,B) = Y) => (min(A) & (A = zero | A = $weak(succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% DEFINITION: add over nat
+
+fof(add_zero, axiom,
+  ![A,B,Y] : ((min(Y) & zero = A & add(A,B) = Y) => Y = B)
+).
+
+fof(add_succ, axiom,
+  ![A,B,X,Y] : ((min(Y) & succ(X) = A & add(A,B) = Y) => Y = $weak(succ(add_rec(X,B)))) % add_rec
+).
+
+fof(add_bad, axiom,
+  ![A,B,Y] : ((min(Y) & bad = A & add(A,B) = Y) => Y = bad)
+).
+
+fof(add_cases, axiom,
+  ![A,B,Y] : ((min(Y) & add(A,B) = Y) => (min(A) & (A = zero | A = $weak(succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% CONTRACT: add_rec :: x -> y -> { z | leq x z }
+
+fof(add_rec_contract_IH, axiom,
+  ![X,Y,Z,P] : ((min(Z) & add_rec(X,Y) = Z & leq(X,Z) = P) => (min(P) & (P = true | P = unr)))
+).
+
+% CONTRACT: id :/: x -> { y | eq x y }
+
+fof(id_not_contract, axiom,
+    cf(a)
+  & b = eq(a,id(a))
+  & min(b)
+  & (b = false | b = bad)
+).
+
+

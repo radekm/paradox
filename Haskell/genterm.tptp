@@ -1,0 +1,38 @@
+cnf(bind, axiom,
+  type(bind, fun(m(A),fun(fun(A,m(B)),m(B))))
+).
+
+cnf(return, axiom,
+  type(return, fun(A,m(A)))
+).
+
+cnf(id, axiom,
+  type(id, fun(A,A))
+).
+
+cnf(const, axiom,
+  type(const, fun(A,fun(B,A)))
+).
+
+cnf(spread, axiom,
+  type(spread, fun(fun(A,fun(B,C)),fun(fun(A,B),fun(A,C))))
+).
+
+cnf(spread, axiom,
+  type(left, fun(fun(A,fun(B,C)),fun(B,fun(A,C))))
+).
+
+cnf(spread, axiom,
+  type(right, fun(fun(B,C),fun(fun(A,B),fun(A,C))))
+).
+
+cnf(apply, axiom,
+  ~type(F, fun(A,B)) | ~type(X, A) | type(apply(F,X), B)
+).
+
+fof(question, question,
+  ?[Join] :
+    type(Join, fun(m(m(a)),m(a)))
+).
+
+

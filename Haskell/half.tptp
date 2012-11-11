@@ -1,0 +1,49 @@
+
+% Problemet
+
+fof(axiom, axiom,
+  half(zero) = zero
+).
+
+fof(axiom, axiom,
+  half(s(zero)) = zero
+).
+
+fof(axiom, axiom,
+  ![X] : s(X) != X
+).
+
+fof(axiom, axiom,
+  ![X] : half(s(s(X))) = s(half(X))
+).
+
+% checking if <half, =, s> is surjective but not injective
+% (note: zero will be found by quantification)
+
+% ordering on domain, with a parameterized Zero (= base case)
+fof(axiom, axiom,
+  ![X,Zero] : lte(X,X,Zero)
+).
+
+fof(axiom, axiom,
+  ![X,Y,Zero] : (lte(X,Y,Zero) => (X = Zero | ?[X1] : (X=s(X1) & lte(X1,Y,Zero))))
+).
+
+% the conjecture!
+fof(conjecture, conjecture,
+?[Zero] : (~$answer(Zero) & (
+% is half surjective (using strong induction)?
+  (![Y] :
+    ( ![Y1] : ((lte(Y1,Y,Zero) & Y1!=Y) => ?[X] : half(X) = Y1)
+    =>
+      ?[X] : half(X) = Y
+    )
+  )
+%&
+% is half not injective?
+%  (?[X1,X2] :
+%    (half(X1) = half(X2) & X1!=X2)
+%  )
+))
+).
+

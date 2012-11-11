@@ -1,0 +1,15 @@
+cnf(axiom, axiom, 
+  f(X) = $weak(g(h(X)))
+).
+
+cnf(axiom, axiom, 
+  g(X) = X
+).
+
+cnf(axiom, axiom, 
+  h(X) != X
+).
+
+cnf(axiom, axiom, 
+  f(a) = a
+).

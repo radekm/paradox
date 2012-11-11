@@ -1,0 +1,17 @@
+#!/bin/sh
+
+find "$TPTP/Problems" -name "*+*\.p" | while read FILE
+do
+  if grep "Theorem" "$FILE" > /dev/null
+  then
+    grep "Rating" "$FILE" | if read A B C R D
+    then
+      if expr "$R" ">=" "0.6" > /dev/null
+      then
+      if expr "$R" "<" "1.0" > /dev/null
+      then
+        echo "$FILE"
+      fi; fi
+    fi
+  fi
+done

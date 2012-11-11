@@ -1,0 +1,110 @@
+\section{Introduction}
+
+Many problems are naturally expressed in sorted first-order logic.
+For example, to model problems in geometry, we may wish to divide 
+the universe into objects that are points, planes or lines.
+Sorted first-order logic is convenient and intuitive to the human user,
+and its expressive power is equivalent to that of unsorted first-order logic.
+Unfortunately, none of the major existing theorem-provers and model finders
+of today deal with sorts. We present in this paper a new tool, Monopoly,
+which translates problems in sorted first-order logic to logically 
+equivalent unsorted problems. The translated problem can then be passed on to
+a theorem prover or model finder of our choice, which can then solve it for us.
+
+\begin{example}[werewolves and villagers] As a running example, we
+model a village that has been infested with werewolves.\footnote{Our
+example is an oversimplification of the party game Werewolf, also
+known as Mafia.} The werewolves only attack at night, and during the
+day they are ordinary villagers, so no-one knows who they are. In
+desperation, the villagers pick some unfortunate people to be burnt at
+the stake. The village is saved if this action kills all the
+werewolves.
+
+We can model this situation with the aid of two sorts $\villager$ and
+$\werewolf$. We have a predicate $\slain$ that characterises which
+villagers were burnt alive and a function $\alterEgo$ that says who
+each werewolf is during the day:
+\label{ex:werewolf1}
+\begin{align*}
+\slain & \in \villager \to o \\ 
+\alterEgo & \in \werewolf \to \villager
+\intertext{To make the problem more interesting for Monopoly, we
+only allow the villagers to kill at most one person, a \emph{victim}
+of their choosing:}
+\victim & \in \villager 
+\end{align*}
+We state that the $\alterEgo$ function must be injective and no-one other
+than the victim may be killed:
+\begin{align*}
+\forall X,Y \in \werewolf \ & ( \alterEgo (X) = \alterEgo (Y) \Longrightarrow  X = Y) \\
+\forall X \in \villager\ & (\slain(X) \Longrightarrow X = \victim) \\
+\intertext{Finally, we assert that the villagers have won---all
+  werewolves were slain:}
+ % & \slain(\victim) \\
+ \forall X \in \werewolf \ & (\alterEgo(X) = \victim)
+\end{align*} 
+\end{example}
+
+We want to use a model finder on this example to see if it is possible
+for the villagers to win the game. But model finders such as Paradox
+only operate on unsorted first-order logic! Luckily, we can use
+Monopoly to safely remove all the sorts from our formula and we get:
+\begin{align*}
+\forall X, Y \ & ( \werewolfp(X) \land \werewolfp(Y) \land \alterEgo(X) = \alterEgo(Y) \Longrightarrow X = Y) \\
+\forall X & (\slain(X) \Longrightarrow X = \victim) \\
+\forall X \ & (\werewolfp(X) \Longrightarrow \alterEgo(X) = \victim) \\
+& \werewolfp(\skolemconstant)
+\end{align*}
+We can see that Monopoly has introduced a predicate $\werewolfp$ to
+model the $\werewolf$ sort, but hasn't introduced a corresponding
+predicate for villagers. Often we \emph{do} need to introduce extra
+predicates but blah blah blah
+
+Monopoly has introduced a predicate $\werewolfp$ to ensure soundness,
+but has detected that no such predicate is needed for the villagers.
+
+It is in general unsound to simply remove the sorts from a problem;
+in the worst case, Monopoly needs to introduce a predicate for each
+sort like it did with $\werewolfp$ above. 
+
+often, we need to introduce a predicate that characterises each of the
+sorts. However, this introduces extra overhead 
+
+blah blah blah
+
+The reason why we need a predicate for werewolves but not for
+villagers has to do with \emph{monotonicity}. If we think of an
+interpretation of our in a domain of size $n$, we are free to have
+fewer than $n$ werewolves in our interpretation, since only those
+domain elements $x$ for which $\werewolfp(x)$ is true are
+werewolves. However, we have no choice but to have $n$ villagers,
+because each domain element is unconditionally a villager. So by not
+including a $\villagerp$ predicate, we lose some control over
+
+What we can do though is to translate sorted logic to unsorted logic. 
+(this is possible since sorted logic and unsorted logic are equally expressive) 
+We can then use an existing model finder (or theorem prover) for unsorted logic.
+
+How to translate?
+
+To simply remove the sorts is unsound, as we shall see in section ...
+Introduce sorting predicates - inefficient.
+
+Use monotonicity to infer when it is necessary to introduce sorting predicates
+and when it is safe to remove the sorts. (Mention Jasmins paper)
+
+- were going to show you lots of cool stuff in the next sections. blahblah.
+
+
+
+%TODO cite Enderton 1972 - translation sorted - unsorted by predicates.
+
+
+
+
+
+
+
+
+
+

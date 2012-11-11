@@ -1,0 +1,25 @@
+
+fof( axiom, axiom, (
+  ![X,Y,Z,V,X1] : (q(X,Y,Z,V)=q(X1,Y,Z,V) => X=X1)
+)).
+
+fof( axiom, axiom, (
+  ![X,Y,Z,V,Y1] : (q(X,Y,Z,V)=q(X,Y1,Z,V) => Y=Y1)
+)).
+
+fof( axiom, axiom, (
+  ![X,Y,Z,V,Z1] : (q(X,Y,Z,V)=q(X,Y,Z1,V) => Z=Z1)
+)).
+
+fof( axiom, axiom, (
+  ![X,Y,Z,V,V1] : (q(X,Y,Z,V)=q(X,Y,Z,V1) => V=V1)
+)).
+
+fof( axiom, axiom, (
+  ![X,Y,Z,V,X1] : ( q(X,Y,Z,V)=fXV(X,V,gXV(Y,Z,V))
+                  | q(X,Y,Z,V)=fYV(Y,V,gYV(X,Z,V))
+                  | q(X,Y,Z,V)=fZV(Z,V,gZV(X,Y,V))
+                  )
+)).
+
+

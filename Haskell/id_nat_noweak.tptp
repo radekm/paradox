@@ -1,0 +1,142 @@
+% AXIOMS: unr, bad
+
+fof(unr_and_bad, axiom,
+  $min(unr) & $min(bad) & cf(unr) & ~cf(bad)
+).
+
+% DATATYPE: nat
+
+fof(zero_and_succ, axiom,
+  ![A,B,X] : (($min(A) & $min(B) & zero = A & succ(X) = B) => A != B)
+).
+
+fof(zero_and_unr_bad, axiom,
+  ![A] : (($min(A) & zero = A) => (A != unr & A != bad))
+).
+
+fof(succ_and_unr_bad, axiom,
+  ![A,X] : (($min(A) & succ(X) = A) => (A != unr & A != bad))
+).
+
+fof(succ_sel, axiom,
+  ![A,X] : (($min(A) & succ(X) = A) => (X = (prev(A))))
+).
+
+fof(zero_cf, axiom,
+  ![A] : (($min(A) & zero = A) => cf(A))
+).
+
+fof(succ_cf, axiom,
+  ![A,X] : (($min(A) & succ(X) = A) => (cf(X) <=> cf(A)))
+).
+
+% DATATYPE: bool
+
+fof(false_and_true, axiom,
+  ![A,B] : (($min(A) & $min(B) & false = A & true = B) => A != B)
+).
+
+fof(false_and_unr_bad, axiom,
+  ![A] : (($min(A) & false = A) => (A != unr & A != bad))
+).
+
+fof(true_and_unr_bad, axiom,
+  ![A] : (($min(A) & true = A) => (A != unr & A != bad))
+).
+
+fof(false_cf, axiom,
+  ![A] : (($min(A) & false = A) => cf(A))
+).
+
+fof(true_cf, axiom,
+  ![A] : (($min(A) & true = A) => cf(A))
+).
+
+% DEFINITION: eq over nat
+
+fof(eq_zero, axiom,
+  ![A,B,Y] : (($min(Y) & zero = A & eq(A,B) = Y) => Y = (eq_zero(B)))
+).
+
+fof(eq_succ, axiom,
+  ![A,B,X,Y] : (($min(Y) & succ(X) = A & eq(A,B) = Y) => Y = (eq_succ(B,X)))
+).
+
+fof(eq_bad, axiom,
+  ![A,B,Y] : (($min(Y) & bad = A & eq(A,B) = Y) => Y = bad)
+).
+
+fof(eq_cases, axiom,
+  ![A,B,Y] : (($min(Y) & eq(A,B) = Y) => ($min(A) & (A = zero | A = (succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% DEFINITION: eq_zero
+
+fof(eq_zero_zero, axiom,
+  ![A,Y] : (($min(Y) & zero = A & eq_zero(A) = Y) => Y = true)
+).
+
+fof(eq_zero_succ, axiom,
+  ![A,X,Y] : (($min(Y) & succ(X) = A & eq_zero(A) = Y) => Y = false)
+).
+
+fof(eq_zero_bad, axiom,
+  ![A,Y] : (($min(Y) & bad = A & eq_zero(A) = Y) => Y = bad)
+).
+
+fof(eq_zero_cases, axiom,
+  ![A,Y] : (($min(Y) & eq_zero(A) = Y) => ($min(A) & (A = zero | A = (succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% DEFINITION: eq_succ
+
+fof(eq_succ_zero, axiom,
+  ![A,B,Y] : (($min(Y) & zero = A & eq_succ(A,B) = Y) => Y = false)
+).
+
+fof(eq_succ_succ, axiom,
+  ![A,B,X,Y] : (($min(Y) & succ(X) = A & eq_succ(A,B) = Y) => Y = (eq(B,X)))
+).
+
+fof(eq_succ_bad, axiom,
+  ![A,B,Y] : (($min(Y) & bad = A & eq_succ(A,B) = Y) => Y = bad)
+).
+
+fof(eq_succ_cases, axiom,
+  ![A,B,Y] : (($min(Y) & eq_succ(A,B) = Y) => ($min(A) & (A = zero | A = (succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% DEFINITION: id over nat
+
+fof(id_zero, axiom,
+  ![A,Y] : (($min(Y) & zero = A & id(A) = Y) => Y = zero)
+).
+
+fof(id_succ, axiom,
+  ![A,X,Y] : (($min(Y) & succ(X) = A & id(A) = Y) => Y = (succ(id_rec(X))))  % id_rec occurrence
+).
+
+fof(id_bad, axiom,
+  ![A,Y] : (($min(Y) & bad = A & id(A) = Y) => Y = bad)
+).
+
+fof(id_cases, axiom,
+  ![A,Y] : (($min(Y) & id(A) = Y) => ($min(A) & (A = zero | A = (succ(prev(A))) | A = bad | Y = unr)))
+).
+
+% CONTRACT: id_rec :: x -> { y | eq x y }
+
+fof(id_rec_contract_IH, axiom,
+  ![A,Y,B] : (($min(Y) & id_rec(A) = Y & eq(A,Y) = B) => ($min(B) & (B = true | B = unr)))
+).
+
+% CONTRACT: id :/: x -> { y | eq x y }
+
+fof(id_not_contract, axiom,
+    cf(a)
+  & b = eq(a,id(a))
+  & $min(b)
+  & (b = false | b = bad)
+).
+
+

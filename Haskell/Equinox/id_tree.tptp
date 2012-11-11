@@ -1,0 +1,163 @@
+fof(axiom,axiom,
+! [F,X]  : (((cf(X) & cf(F) & min(app(F,X))) => (cf(app(F,X))))
+).
+fof(axiom,axiom,
+min(bad) & min(unr) & min(false) & min(true) & min(leaf)
+).
+fof(axiom,axiom,
+~(cf(bad))
+).
+fof(axiom,axiom,
+cf(unr)
+).
+fof(axiom,axiom,
+false != true
+).
+fof(axiom,axiom,
+cf(true)
+).
+fof(axiom,axiom,
+cf(false)
+).
+fof(axiom,axiom,
+true != unr
+).
+fof(axiom,axiom,
+false != unr
+).
+fof(axiom,axiom,
+! [Z_1,Z_2]  : (min(node(Z_1,Z_2)) => Z_1 = sel_1_node(node(Z_1,Z_2)))
+).
+fof(axiom,axiom,
+! [Z_1,Z_2]  : (min(node(Z_1,Z_2)) => Z_2 = sel_2_node(node(Z_1,Z_2)))
+).
+fof(axiom,axiom,
+! [Z3_1,Z3_2]  : (min(node(Z3_1,Z3_2)) => leaf != node(Z3_1,Z3_2))
+).
+fof(axiom,axiom,
+cf(leaf)
+).
+fof(axiom,axiom,
+! [Z5_1,Z5_2]  : (min(node(Z5_1,Z5_2)) => (cf(node(Z5_1,Z5_2))) <=> ((cf(Z5_1) & cf(Z5_2))))
+).
+fof(axiom,axiom,
+leaf != unr
+).
+fof(axiom,axiom,
+! [Z7_1,Z7_2]  : (min(node(Z7_1,Z7_2)) => node(Z7_1,Z7_2) != unr)
+).
+fof(axiom,axiom,
+! [T1,T2,ZDEF1,ZDEF2]  : ((T1 = leaf & min(eq(T1,T2))) => (eq(T1,T2) = isleaf(T2)))
+).
+fof(axiom,axiom,
+! [T1,T2,ZDEF1,ZDEF2]  : ((T1 = node(ZDEF1,ZDEF2) & min(eq(T1,T2))) => (eq(T1,T2) = aux(ZDEF1,T2,ZDEF2)))
+).
+fof(axiom,axiom,
+! [T1,T2,ZDEF1,ZDEF2]  : ((T1 = bad & min(eq(T1,T2))) => (eq(T1,T2) = bad))
+).
+fof(axiom,axiom,
+! [T1,T2,ZDEF1,ZDEF2]  : (min(eq(T1,T2)) => ((T1 != bad & T1 != $weak(leaf) & T1 != $weak(node(sel_1_node(T1),sel_2_node(T1))))) => (eq(T1,T2) = unr))
+).
+fof(axiom,axiom,
+! [T1,T2,ZDEF1,ZDEF2]  : (min(eq(T1,T2)) => min(T1))
+).
+fof(axiom,axiom,
+(! [T1,T2]  : (((cf(T1) & cf(T2))) => (cf(eq(T1,T2))))) <=> (cf(eq_ptr))
+).
+fof(axiom,axiom,
+! [T1,T2]  : (eq(T1,T2) = $weak(app(app(eq_ptr,T1),T2)))
+).
+fof(axiom,axiom,
+! [T1,T2]  : (eqp(T1,T2) = $weak(app(app(eqp_ptr,T1),T2)))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = leaf) => (isleaf(T) = $weak(true)))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = node(ZDEF1,ZDEF2)) => (isleaf(T) = $weak(false)))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = bad) => (isleaf(T) = bad))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : (((T != bad & T != $weak(leaf) & T != $weak(node(sel_1_node(T),sel_2_node(T))))) => (isleaf(T) = unr))
+).
+fof(axiom,axiom,
+(! [T]  : (((cf(T))) => (cf(isleaf(T))))) <=> (cf(isleaf_ptr))
+).
+fof(axiom,axiom,
+! [T]  : (isleaf(T) = $weak(app(isleaf_ptr,T)))
+).
+fof(axiom,axiom,
+! [T]  : (isleafp(T) = $weak(app(isleafp_ptr,T)))
+).
+fof(axiom,axiom,
+! [L,R,T,ZDEF1,ZDEF2]  : ((T = leaf) => (aux(L,R,T) = $weak(false)))
+).
+fof(axiom,axiom,
+! [L,R,T,ZDEF1,ZDEF2]  : ((T = node(ZDEF1,ZDEF2)) => (aux(L,R,T) = $weak(and(eq(L,ZDEF1),eq(R,ZDEF2)))))
+).
+fof(axiom,axiom,
+! [L,R,T,ZDEF1,ZDEF2]  : ((T = bad) => (aux(L,R,T) = bad))
+).
+fof(axiom,axiom,
+! [L,R,T,ZDEF1,ZDEF2]  : (((T != bad & T != $weak(leaf) & T != $weak(node(sel_1_node(T),sel_2_node(T))))) => (aux(L,R,T) = unr))
+).
+fof(axiom,axiom,
+(! [L,R,T]  : (((cf(L) & cf(R) & cf(T))) => (cf(aux(L,R,T))))) <=> (cf(aux_ptr))
+).
+fof(axiom,axiom,
+! [L,R,T]  : (aux(L,R,T) = $weak(app(app(app(aux_ptr,L),R),T)))
+).
+fof(axiom,axiom,
+! [L,R,T]  : (auxp(L,R,T) = $weak(app(app(app(auxp_ptr,L),R),T)))
+).
+fof(axiom,axiom,
+! [X,Y]  : ((X = true) => (and(X,Y) = $weak(Y)))
+).
+fof(axiom,axiom,
+! [X,Y]  : ((X = false) => (and(X,Y) = $weak(false)))
+).
+fof(axiom,axiom,
+! [X,Y]  : ((X = bad) => (and(X,Y) = bad))
+).
+fof(axiom,axiom,
+! [X,Y]  : (((X != bad & X != $weak(true) & X != $weak(false))) => (and(X,Y) = unr))
+).
+fof(axiom,axiom,
+(! [X,Y]  : (((cf(X) & cf(Y))) => (cf(and(X,Y))))) <=> (cf(and_ptr))
+).
+fof(axiom,axiom,
+! [X,Y]  : (and(X,Y) = $weak(app(app(and_ptr,X),Y)))
+).
+fof(axiom,axiom,
+! [X,Y]  : (andp(X,Y) = $weak(app(app(andp_ptr,X),Y)))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = leaf) => (id(T) = $weak(leaf)))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = node(ZDEF1,ZDEF2)) => (id(T) = $weak(node(idp(ZDEF1),idp(ZDEF2)))))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : ((T = bad) => (id(T) = bad))
+).
+fof(axiom,axiom,
+! [T,ZDEF1,ZDEF2]  : (((T != bad & T != $weak(leaf) & T != $weak(node(sel_1_node(T),sel_2_node(T))))) => (id(T) = unr))
+).
+fof(axiom,axiom,
+(! [T]  : (((cf(T))) => (cf(id(T))))) <=> (cf(id_ptr))
+).
+fof(axiom,axiom,
+! [T]  : (id(T) = $weak(app(id_ptr,T)))
+).
+fof(axiom,axiom,
+! [T]  : (idp(T) = $weak(app(idp_ptr,T)))
+).
+fof(axiom,axiom,
+~(! [Z9]  : ((cf(Z9)) => (((app(id_ptr,Z9) = unr | (bad != eq(Z9,app(id_ptr,Z9)) & eq(Z9,app(id_ptr,Z9)) != false))))))
+).
+fof(axiom,axiom,
+! [Z8]  : ((cf(Z8)) => (((app(idp_ptr,Z8) = unr | (bad != eq(Z8,app(idp_ptr,Z8)) & eq(Z8,app(idp_ptr,Z8)) != false)))))
+).
+

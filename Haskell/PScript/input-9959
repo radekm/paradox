@@ -1,0 +1,9 @@
+fof(a_0, axiom, ![X] : (~c1(X) | ~d1(X))).
+fof(a_1, axiom, ![X] : (~c1(X) | ~d2(X))).
+fof(a_2, axiom, ![X] : (~d1(X) | ~c2(X))).
+fof(a_3, axiom, ![X] : (~c2(X) | ~d2(X))).
+fof(a_4, axiom, ![X] : (~d1(X) | ~d2(X))).
+fof(a_5, axiom, ![X] : (~c1(X) | ![Y] : (d1(f(X,Y)) | d2(f(X,Y)) | ~c1(Y)))).
+fof(a_6, axiom, ![X] : (~c2(X) | ![Y] : (d1(f(X,Y)) | d2(f(X,Y)) | ~c2(Y)))).
+fof(a_7, axiom, ![X] : (~d1(X) | ![Y] : (c1(f(X,Y)) | c2(f(X,Y)) | ~d1(Y)))).
+fof(a_8, axiom, ![X] : (~d2(X) | ![Y] : (c1(f(X,Y)) | c2(f(X,Y)) | ~d2(Y)))).

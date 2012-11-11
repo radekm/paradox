@@ -1,0 +1,9 @@
+fof (t1,axiom,b2=b1).
+fof (t2,axiom,tmp12=tmp11).
+fof (t3,axiom,tmp22=tmp21).
+fof (t4,axiom,mb1=mb2).
+fof (t5,axiom,g1=g2).
+
+fof (r1,conjecture,
+      ( (b1 = a2 (exp(g1,tmp11), exp(g1,tmp21), times(exp(exp(g1,tmp11),tmp21), mb1))) <=> (b2 = a2 (exp(g2,tmp12), exp(g1,tmp22), times(exp(exp(g1,tmp12),tmp22), mb2))) )
+   ).

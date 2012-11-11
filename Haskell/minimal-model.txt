@@ -1,0 +1,39 @@
+Idea for finding infinite models
+--------------------------------
+
+An (infinite) model can be represented by a set of Horn clauses; the model 
+is then the minimal model of the set.
+
+The first thing we need to be able to do is to check if a given clause 
+is true in the minimal model.
+
+Example. Theory:
+
+~r(x,x).
+~r(x,y) | ~r(y,z) | r(x,z).
+r(x,f(x)).
+
+Horn clauses:
+
+r(x,f(x)).
+~r(x,y) | r(x,f(y)).
+
+Checking the model.
+
+Minimal m s.t. m |= M : m |= C
+
+r(x,f(y)) = x=y | r(x,y)
+r(_,_) = false
+
+prove: ~r(x,x). By induction.
+
+1. Show ~r(a,a). (check)
+
+2. Assume ~r(c,c). Show ~r(f(c),f(c)).
+  r(f(c),f(c)) = f(c)=c | r(f(c),c)
+
+prove: r(x,f(x)).
+
+1. Show r(a,f(a)). (check)
+
+2. 

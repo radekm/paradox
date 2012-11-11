@@ -1,0 +1,113 @@
+cnf(axiom, axiom,
+  min(bot)
+).
+
+cnf(axiom, axiom,
+  ~min(nil) | bot != nil
+).
+
+cnf(axiom, axiom,
+  ~min(cons(X,Xs)) | bot != cons(X,Xs)
+).
+
+cnf(axiom, axiom,
+  ~min(false) | bot != false
+).
+
+cnf(axiom, axiom,
+  ~min(true) | bot != true
+).
+
+cnf(axiom, axiom,
+  ~min(nil) | ~min(cons(X,Xs)) | nil != cons(X,Xs)
+).
+
+cnf(axiom, axiom,
+  ~min(false) | ~min(true) | false != true
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | Y != cons(X,Xs) | head(Y) = X
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | Y != cons(X,Xs) | tail(Y) = Xs
+).
+
+% eq
+
+cnf(axiom, axiom,
+  ~min(Y) | eq(nil,Bs) != Y | eq_Nil(Bs) = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq(cons(A,As),Bs) != Y | eq_Cons(As,Bs) = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq(As,Bs) != Y | bot = Y | As = nil | As = cons(head(As),tail(As))
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq(As,Bs) != Y | min(As)
+).
+
+% eq_Nil
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Nil(nil) != Y | true = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Nil(cons(A,As)) != Y | false = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Nil(As) != Y | bot = Y | As = nil | As = cons(head(As),tail(As))
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Nil(As) != Y | min(As)
+).
+
+% eq_Cons
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Cons(As,nil) != Y | false = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Cons(As,cons(B,Bs)) != Y | eq(As,Bs) = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Cons(As,Bs) != Y | bot = Y | Bs = nil | Bs = cons(head(Bs),tail(Bs))
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | eq_Cons(As,Bs) != Y | min(Bs)
+).
+
+% induction step
+
+cnf(axiom, axiom,
+  eq(as,bs) = eq(bs,as)
+).
+
+cnf(axiom, axiom,
+  eq(cons(a,as),cons(b,bs)) != eq(bs,cons(a,as))
+).
+
+cnf(axiom, axiom,
+  min(eq(as,bs))
+).
+
+cnf(axiom, axiom,
+  min(eq(cons(a,as),cons(b,bs)))
+).
+
+cnf(axiom, axiom,
+  min(eq(bs,cons(a,as)))
+).
+
+

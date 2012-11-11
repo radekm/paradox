@@ -1,0 +1,24 @@
+cnf(axiom, axiom,
+  X = a | X = b
+).
+
+cnf(axiom, axiom,
+  p != q
+).
+
+cnf(axiom, axiom,
+  p != r
+).
+
+cnf(axiom, axiom,
+  q != r
+).
+
+~p(X,Y) | ~p(Y,Z) | p(X,Z)
+
+
+~p(X,Y) | pp(t(X,Y))
+~pp(P) | ~pp(Q) | pp(merge(P,Q))
+
+merge(t(X,Y),t(Y,Z)) = t(X,Z)
+

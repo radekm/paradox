@@ -1,0 +1,2 @@
+fof(a_0, axiom, ![X] : ![U] : (X = U | ![Z] : ![Y] : (multiply(U,Y) != Z | multiply(X,Y) != Z))).
+fof(a_1, axiom, ![Y] : ![U] : (Y = U | ![Z] : ![X] : (multiply(X,U) != Z | multiply(X,Y) != Z))).

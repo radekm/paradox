@@ -1,0 +1,7 @@
+fof(a_0, axiom, ![Z] : ![Y] : ![X] : f(X,f(Y,Z)) = f(f(X,Y),Z)).
+fof(a_1, axiom, ![X] : (c1(X) | d1(X) | c2(X) | d2(X))).
+fof(a_2, axiom, ![X] : (~c1(X) | ~d1(X))).
+fof(a_3, axiom, ![X] : (~c1(X) | ~d2(X))).
+fof(a_4, axiom, ![X] : (~d1(X) | ~c2(X))).
+fof(a_5, axiom, ![X] : (~c2(X) | ~d2(X))).
+fof(a_6, axiom, ![X] : (~c1(X) | ![Y] : (d1(f(X,Y)) | d2(f(X,Y)) | ~c1(Y)))).

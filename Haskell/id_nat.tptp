@@ -1,0 +1,142 @@
+% AXIOMS: c_UNR, c_BAD
+
+fof(c_UNR_and_c_BAD, axiom,
+  cf(c_UNR) & ~cf(c_BAD)
+).
+
+% DATATYPE: nat
+
+fof(c_Zero_and_c_Succ, axiom,
+  ![A,B,X] : (($min(A) & $min(B) & c_Zero = A & c_Succ(X) = B) => A != B)
+).
+
+fof(c_Zero_and_c_UNR_c_BAD, axiom,
+  ![A] : (($min(A) & c_Zero = A) => (A != c_UNR & A != c_BAD))
+).
+
+fof(c_Succ_and_c_UNR_c_BAD, axiom,
+  ![A,X] : (($min(A) & c_Succ(X) = A) => (A != c_UNR & A != c_BAD))
+).
+
+fof(c_Succ_sel, axiom,
+  ![A,X] : (($min(A) & c_Succ(X) = A) => (X = $weak(prev(A))))
+).
+
+fof(c_Zero_cf, axiom,
+  ![A] : (($min(A) & c_Zero = A) => cf(A))
+).
+
+fof(c_Succ_cf, axiom,
+  ![A,X] : (($min(A) & c_Succ(X) = A) => (cf(X) <=> cf(A)))
+).
+
+% DATATYPE: bool
+
+fof(c_False_and_c_True, axiom,
+  ![A,B] : (($min(A) & $min(B) & c_False = A & c_True = B) => A != B)
+).
+
+fof(c_False_and_c_UNR_c_BAD, axiom,
+  ![A] : (($min(A) & c_False = A) => (A != c_UNR & A != c_BAD))
+).
+
+fof(c_True_and_c_UNR_c_BAD, axiom,
+  ![A] : (($min(A) & c_True = A) => (A != c_UNR & A != c_BAD))
+).
+
+fof(c_False_cf, axiom,
+  ![A] : (($min(A) & c_False = A) => cf(A))
+).
+
+fof(c_True_cf, axiom,
+  ![A] : (($min(A) & c_True = A) => cf(A))
+).
+
+% DEFINITION: eq over nat
+
+fof(eq_c_Zero, axiom,
+  ![A,B,Y] : (($min(Y) & c_Zero = A & app(app(eq,A),B) = Y) => Y = $weak(eq_c_Zero(B)))
+).
+
+fof(eq_c_Succ, axiom,
+  ![A,B,X,Y] : (($min(Y) & c_Succ(X) = A & app(app(eq,A),B) = Y) => Y = $weak(eq_c_Succ(B,X)))
+).
+
+fof(eq_c_BAD, axiom,
+  ![A,B,Y] : (($min(Y) & c_BAD = A & app(app(eq,A),B) = Y) => Y = c_BAD)
+).
+
+fof(eq_cases, axiom,
+  ![A,B,Y] : (($min(Y) & app(app(eq,A),B) = Y) => ($min(A) & (A = c_Zero | A = $weak(c_Succ(prev(A))) | A = c_BAD | Y = c_UNR)))
+).
+
+% DEFINITION: eq_c_Zero
+
+fof(eq_c_Zero_c_Zero, axiom,
+  ![A,Y] : (($min(Y) & c_Zero = A & eq_c_Zero(A) = Y) => Y = c_True)
+).
+
+fof(eq_c_Zero_c_Succ, axiom,
+  ![A,X,Y] : (($min(Y) & c_Succ(X) = A & eq_c_Zero(A) = Y) => Y = c_False)
+).
+
+fof(eq_c_Zero_c_BAD, axiom,
+  ![A,Y] : (($min(Y) & c_BAD = A & eq_c_Zero(A) = Y) => Y = c_BAD)
+).
+
+fof(eq_c_Zero_cases, axiom,
+  ![A,Y] : (($min(Y) & eq_c_Zero(A) = Y) => ($min(A) & (A = c_Zero | A = $weak(c_Succ(prev(A))) | A = c_BAD | Y = c_UNR)))
+).
+
+% DEFINITION: eq_c_Succ
+
+fof(eq_c_Succ_c_Zero, axiom,
+  ![A,B,Y] : (($min(Y) & c_Zero = A & eq_c_Succ(A,B) = Y) => Y = c_False)
+).
+
+fof(eq_c_Succ_c_Succ, axiom,
+  ![A,B,X,Y] : (($min(Y) & c_Succ(X) = A & eq_c_Succ(A,B) = Y) => Y = $weak(app(app(eq,B),X)))
+).
+
+fof(eq_c_Succ_c_BAD, axiom,
+  ![A,B,Y] : (($min(Y) & c_BAD = A & eq_c_Succ(A,B) = Y) => Y = c_BAD)
+).
+
+fof(eq_c_Succ_cases, axiom,
+  ![A,B,Y] : (($min(Y) & eq_c_Succ(A,B) = Y) => ($min(A) & (A = c_Zero | A = $weak(c_Succ(prev(A))) | A = c_BAD | Y = c_UNR)))
+).
+
+% DEFINITION: id over nat
+
+fof(id_c_Zero, axiom,
+  ![A,Y] : (($min(Y) & c_Zero = A & app(id,A) = Y) => Y = c_Zero)
+).
+
+fof(id_c_Succ, axiom,
+  ![A,X,Y] : (($min(Y) & c_Succ(X) = A & app(id,A) = Y) => Y = $weak(c_Succ(app(id_rec,X))))  % id_rec occurrence
+).
+
+fof(id_c_BAD, axiom,
+  ![A,Y] : (($min(Y) & c_BAD = A & app(id,A) = Y) => Y = c_BAD)
+).
+
+fof(id_cases, axiom,
+  ![A,Y] : (($min(Y) & app(id,A) = Y) => ($min(A) & (A = c_Zero | A = $weak(c_Succ(prev(A))) | A = c_BAD | Y = c_UNR)))
+).
+
+% CONTRACT: id_rec :: x -> { y | eq x y }
+
+fof(id_rec_contract_IH, axiom,
+  ![A,Y,B] : (($min(Y) & app(id_rec,A) = Y & app(app(eq,A),Y) = B & cf(A)) => ($min(B) & (B = c_True | B = c_UNR)))
+).
+
+% CONTRACT: id :/: x -> { y | eq x y }
+
+fof(id_not_contract, axiom,
+    cf(a_x)
+  & a_b = app(app(eq,a_x),app(id,a_x))
+  & $min(a_b)
+  & (a_b = c_False | a_b = c_BAD)
+).
+
+

@@ -1,0 +1,5 @@
+#!/bin/sh
+
+WORK="/home/koen/Code/Folkung/Haskell"
+cp "$1" $WORK/PScript/input-$$
+$WORK/paradox "$@"

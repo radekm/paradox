@@ -1,0 +1,21 @@
+cnf(axiom, axiom,
+  ~p(pre(T),X,Y) | ~p(pre(T),Y,Z) | p(T,X,Z)
+).
+
+cnf(axiom, axiom,
+  p(T,X,s(X))
+).
+
+cnf(axiom, axiom,
+  ~p(pre(T),X,X) | contr(T)
+).
+
+cnf(axiom, axiom,
+  contr(t)
+).
+
+cnf(axiom, axiom,
+  ~contr(pre(t))
+).
+
+

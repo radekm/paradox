@@ -1,0 +1,1 @@
+fof(a_0, axiom, multiply(multiply(a,multiply(d,c)),multiply(multiply(b,e),f)) != multiply(multiply(a,multiply(b,c)),multiply(multiply(d,e),f))).

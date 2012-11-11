@@ -1,0 +1,82 @@
+cnf(axiom, axiom,
+  min(bot)
+).
+
+cnf(axiom, axiom,
+  ~min(nil) | bot != nil
+).
+
+cnf(axiom, axiom,
+  ~min(cons(X,Xs)) | bot != cons(X,Xs)
+).
+
+cnf(axiom, axiom,
+  ~min(nil) | ~min(cons(X,Xs)) | nil != cons(X,Xs)
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | Y != cons(X,Xs) | head(Y) = X
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | Y != cons(X,Xs) | tail(Y) = Xs
+).
+
+% app
+
+cnf(axiom, axiom,
+  ~min(Y) | app(nil,Bs) != Y | Bs = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | app(cons(A,As),Bs) != Y | cons(A,app(As,Bs)) = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | app(As,Bs) != Y | As = nil | As = cons(head(As),tail(As)) % | bot = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | app(As,Bs) != Y | min(As)
+).
+
+% rev
+
+cnf(axiom, axiom,
+  ~min(Y) | rev(nil) != Y | nil = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | rev(cons(A,As)) != Y | app(rev(As),cons(A,nil)) = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | rev(As) != Y | As = nil | As = cons(head(As),tail(As)) % | bot = Y
+).
+
+cnf(axiom, axiom,
+  ~min(Y) | rev(As) != Y | min(As)
+).
+
+% question
+
+cnf(axiom, axiom,
+  ps = rev(cons(a,cons(b,as)))
+).
+
+cnf(axiom, axiom,
+  qs = app(as,cons(b,cons(a,nil)))
+).
+
+cnf(axiom, axiom,
+  min(ps)
+).
+
+cnf(axiom, axiom,
+  min(qs)
+).
+
+cnf(axiom, axiom,
+  ps != qs
+).
+

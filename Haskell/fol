@@ -1,0 +1,11 @@
+#!/bin/sh
+
+EPROVER="/home/koen/Code/E/PROVER"
+FOLKUNG="/home/koen/Code/Folkung/Haskell/PScript"
+export TPTP="/home/koen/Code/Folkung/TPTP-v3.7.0"
+export PATH="${EPROVER}:${FOLKUNG}:${PATH}"
+
+TOOL="$1"
+shift
+
+"$TOOL" "$@"

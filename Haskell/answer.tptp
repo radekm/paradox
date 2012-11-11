@@ -1,0 +1,5 @@
+fof(axiom, axiom, pojke(koen) | pojke(vincent)).
+
+fof(conjecture, conjecture, ?[X] : (~$answer(X) & pojke(X))).
+
+

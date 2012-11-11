@@ -1,0 +1,67 @@
+\documentclass{llncs}
+
+\usepackage{amsmath}
+\usepackage{algorithm}
+\usepackage{algpseudocode} 
+\usepackage{amsfonts}
+\usepackage{amssymb}
+
+
+
+\newcommand{\p}{\mbox{\sf p}}
+\newcommand{\aconst}{\mbox{\sf a}}
+\newcommand{\false}{\mbox{\sf false}}
+\newcommand{\true}{\mbox{\sf true}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\formula}{\varphi}
+\newcommand{\satformula}{\varphi_{\textsc{sat}}}
+\newcommand{\satlit}{\phi_{i_{\textsc{sat}}}}
+
+\newcommand{\werewolf}{\textit{werewolf}}
+\newcommand{\villager}{\textit{villager}}
+\newcommand{\werewolfp}{\mbox {\sf werewolf}}
+\newcommand{\villagerp}{\mbox {\sf villager}}
+\newcommand{\slain}{\mbox {\sf slain}}
+\newcommand{\alterEgo}{\mbox {\sf alterEgo}}
+\newcommand{\victim}{\mbox{\sf victim}}
+\newcommand{\skolemconstant}{\mbox{\sf c}}
+
+\title{Sort it out with Monotonicity}
+\author{Ann Lilliestr\"om and Nick Smallbone}
+\institute{ Chalmers University of Technology, Gothenburg, Sweden
+         \\ \email{\{annl,nicsma\}@chalmers.se}
+          }
+
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+None of the famous theorem provers for first-order logic deal with
+many-sorted problems. Ideally, we would like our provers to understand
+many-sorted logic, but in the meantime, we want to be able to
+\emph{translate} a sorted problem into an unsorted one so that the
+existing theorem provers and model finders can solve it for us.
+%There are two natural ways to do this. One is a) easy, b) efficient
+
+%and c) unsound, while the other is a) always correct and b) often wasteful. 
+There are two natural ways to do this translation. One is easy and efficient
+but unsound, while the other is always correct but often wasteful. 
+We present a technique called
+\emph{monotonicity inference} that allows us to use a mixture of the
+two techniques: the efficient one when sound and the wasteful one when
+necessary. We apply this technique in a new tool, Monopoly, which
+automatically translates from sorted to unsorted first-order logic.
+\end{abstract}
+
+\input{introduction}
+\input{erasure}
+\input{monotonicity}
+\input{monopoly}
+\input{results}
+\input{future}
+\input{conclusions} 
+
+\end{document}

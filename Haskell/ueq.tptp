@@ -1,0 +1,24 @@
+cnf(axiom, axiom,
+  p(a) = true
+).
+
+cnf(axiom, axiom,
+  p(s(s(a))) != true
+).
+
+cnf(axiom, axiom,
+  f(p(X),p(s(X))) != f(true,false)
+).
+
+cnf(axiom, axiom,
+  not(X) != X
+).
+
+cnf(axiom, axiom,
+  not(false) != true
+).
+
+cnf(axiom, axiom,
+  not(not(X)) = X
+).
+

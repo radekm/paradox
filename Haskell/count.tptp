@@ -1,0 +1,24 @@
+cnf(axiom, axiom,
+  succ(zero(X)) = one(X)
+).
+
+cnf(axiom, axiom,
+  succ(one(X)) = zero(succ(X))
+).
+
+cnf(axiom, axiom,
+  succ(nil) = one(nil)
+).
+
+cnf(axiom, axiom,
+  p(nil)
+).
+
+cnf(axiom, axiom,
+  ~p(X) | p(succ(X))
+).
+
+cnf(axiom, axiom,
+  ~p(one(one(one(one(one(one(one(nil))))))))
+).
+

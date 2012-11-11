@@ -1,0 +1,57 @@
+%% definitions %%
+
+cnf(axiom, axiom,
+  p(zero) = true
+).
+
+cnf(axiom, axiom,
+  step(p(X)) != true | p(s(X)) = true
+).
+
+cnf(axiom, axiom,
+  q(zero) = true
+).
+
+cnf(axiom, axiom,
+  step(q(X)) != true | q(s(X)) = true
+).
+
+%% step %%
+
+cnf(axiom, axiom,
+  step(true) = true
+).
+
+cnf(axiom, axiom,
+  step(and(P,Q)) = and(step(P),step(Q))
+).
+
+cnf(axiom, axiom,
+  and(P,Q) != true | P = true
+).
+
+cnf(axiom, axiom,
+  and(P,Q) != true | Q = true
+).
+
+cnf(axiom, axiom,
+  and(true,true) = true
+).
+
+% (step(P) & ~P) v P
+
+cnf(axiom, axiom,
+  step(P) = true | P = true
+).
+
+%% conjecture %%
+
+cnf(axiom, axiom,
+  p(a) = true
+).
+
+cnf(axiom, axiom,
+  q(a) != true
+).
+
+

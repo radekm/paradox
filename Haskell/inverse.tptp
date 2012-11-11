@@ -1,0 +1,119 @@
+cnf(axiom, axiom,
+  f(X) != f(Y) | X = Y
+).
+
+% negation of higher-order axiom: Find a G such that forall X, G(f(X)) = X
+
+% model:
+% f(*) = *
+
+% solution:
+% g(*) = *
+
+% expression:
+% g(X) = X
+
+cnf(axiom, axiom,
+  g1(X) = X
+).
+
+cnf(axiom, axiom,
+  g1(f(arg_g1)) != arg_g1
+).
+
+% model:
+% f(*) = 1
+% f(1) = 2
+% f(2) = 3
+% f(3) = 4
+
+% solution:
+% g(1) = *
+% g(2) = 1
+% g(3) = 2
+% g(4) = 3
+
+% expression:
+% g(X) = eps Z . f(Z) = X
+
+cnf(axiom, axiom,
+  f(g2(X)) = X | f(Z) != X
+).
+
+cnf(axiom, axiom,
+  g2(f(arg_g2)) != arg_g2
+).
+
+%----
+
+% syntax of "higher-order axioms"
+% All X1,..,Xn . All F1,..,Fm . Exi Y1,..,Yk . phi(X*,F*,Y*)
+
+% in phi, the Fi can appear as a function symbol, but not as an argument.
+
+% once we have the f1,..,fm, the resulting axiom is first-order
+
+%-----
+
+translation
+
+t ::= i | o | t1 -> t2
+
+e ::= e1 = e2
+    | \x . e[x]
+    | e1 e2
+    | c
+
+the goal is to remove = on functions, lambdas and applications, and replace by
+
+    | ![X:t] . e[X]
+    | X:t
+    | F(e1,..,ek)
+
+T[e1 = e2] ( when type(e1) = type(e2) = i,o )
+  = T[e1] = T[e2]
+
+T[e1 = e2] ( when type(e1) = type(e2) = t1 -> t2 )
+  = ![X:t1] . T[e1 (X:t1) = e2 (X:t1)]
+
+T[e1 e2 | q]
+  = T[e1, e2 | q]
+
+T[\x . e1[x], e2 | q]
+  = T[e1[e2] | q]
+
+T[X:t] ( when t = i,o )
+  = X:t
+
+T[X:t1->t2, e | q] ( when t = i,o )
+  = X:t
+
+
+%------
+
+% Forall G . G (f (arg(G))) != arg(G)
+
+%cnf(axiom, axiom,
+%  app(G,f(arg(G))) != arg(G) | $answer(G)
+%).
+
+%cnf(axiom, axiom,
+%  g1(f(arg_g1)) != arg_g1
+%).
+
+% instantiations
+
+% g = \y . eps x . f(x)=y
+
+% g y = eps x . f(x) = y
+
+% f(g y) = y | All x . f(x) /= y
+
+%cnf(axiom, axiom,
+%  f(g1(Y)) = Y | f(X) != Y
+%).
+
+%cnf(axiom, axiom,
+%  f(g1(f(X))) = f(X)
+%).
+

@@ -1,0 +1,84 @@
+#!/bin/sh
+
+punc()
+{
+  sed -e 's/(/ /' -e 's/,/ /g' -e 's/)/ /'
+}
+
+FILE="$1"
+
+echo "digraph {"
+
+cat "$FILE" \
+  | sed -e 's/.*(//g' \
+        -e 's/) <=>.*//g' \
+        -e 's/) = /\n/g' \
+        -e 's/.* = //g' \
+        -e 's/,/\n/g' \
+  | grep -e '#' | sort | uniq \
+  > "$FILE.nodes"
+
+node()
+{
+  echo "$@" | sed 's/#/node_/'
+}
+
+attr()
+{
+  F="$1"
+  
+  if [ "$F" = "p" ]
+  then
+    echo "[color=blue]"
+  elif [ "$F" = "p_tc" ]
+  then
+    echo "[color=purple]"
+  elif [ "$F" = "q" ]
+  then
+    echo "[color=red]"
+  else
+    echo "[label="'"'"$F"'"'"]"
+  fi
+}
+
+list()
+{
+  while read LINE
+  do
+    /bin/echo -n "$LINE "
+  done
+}
+
+# nodes (constants, unipreds)
+cat "$FILE.nodes" | while read NODE
+do
+  CONSTANTS=`grep -v ')' $FILE | grep -e "= $NODE" | sed 's/ .*//' | list`
+  UNIPREDS=`grep -e "($NODE) <=> "'$'"true" $FILE | sed 's/(.*//' | list`
+  LABEL="$CONSTANTS"
+  if [ "$UNIPREDS" != "" ]
+  then
+    LABEL="$LABEL ($UNIPREDS)"
+  fi
+  echo `node $NODE` "[label="'"'"$LABEL"'"'"];"
+done
+
+# unary functions
+cat "$FILE" | grep ') = ' | grep -v ',' | punc | while read F X EQUALS Y
+do
+  if [ "$EQUALS" = "=" ]
+  then
+    echo `node $X` "->" `node $Y` "`attr $F`;"
+  fi
+done 
+
+# binary relations
+cat "$FILE" | grep ') <=> $true' | punc | while read P X Y EQUIVS TRUE
+do
+  if [ "$EQUIVS" = "<=>" ]
+  then
+    echo `node $X` "->" `node $Y` "`attr $P`;"
+  fi
+done 
+
+echo "}"
+

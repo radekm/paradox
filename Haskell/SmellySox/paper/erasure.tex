@@ -1,0 +1,121 @@
+
+\section{Sort Erasure}
+
+Note: The idea of this section is to show different ways of removing the
+sorts, discuss their advantages and disadvantages, and lastly
+how some of the disadvantages can be remedied by monotonicity inference.
+
+
+Remove sorts in example from introduction. 
+(Typed problem is satisfiable but the untyped isn't.
+Show that doesn't work.
+
+
+
+%Show roughly how this works.
+
+%Say that it is not always necessary.
+
+%Explain the need for a calculus to show when it is necessary and when 
+%it isn't.
+
+%Introduce Monotonicity for FOL. Refer to Jasmin's paper.
+
+%Say that we have implemented this in a tool called Monopoly and 
+%that we will explain more about this in sections blah, blah and blah.
+
+
+%One obvious approach is to simply erase all the sorts: that is,
+%whenever we have a sorted quantification $(\forall x:S)\ldots$ or
+%$(\exists x:S)\ldots$, we just turn it into an unsorted quantification
+%$(\forall x)\ldots$ or $(\exists x)\ldots$.
+
+%Unfortunately, this doesn't work. Consider the formula
+%\begin{align*}
+%& (\forall x y:A)(x = y) \\
+%\land & (\exists x y:B)(x \neq y)
+%\end{align*}
+%This formula is satisfiable: for a model, let the domain of $A$ have
+%size 1 and the domain of $B$ have size greater than 1. If we erase the
+%sorts, though, we get $(\forall x y)(x = y) \land (\exists x y)(x \neq
+%y)$, which is of the form $P \land \neg P$ and therefore
+%unsatisfiable.
+
+What went wrong? The problem is that the formula is satisfiable but only
+when the domains of $A$ and $B$ have different sizes. When we erase
+the types we flatten the two domains into one blah blah blah.
+
+Blah blah the property we have: $erase(\formula)$ is satisfiable iff there is
+a model of $\formula$ where all the domains have the same size.
+Therefore, for erasure to be correct, we need to have this property:
+$\formula$ is satisfiable iff it has a model where all the domains
+have the same size.
+
+\subsection{...}
+
+\begin{lemma}
+\label{lm:remove_sorts}
+Given a sorted FOL formula $\varphi$, with sorts $\alpha_1 ... \alpha_n$, and a model  
+$\M = \{{(D_{\alpha_1},...,D_{\alpha_n}),I}\}$ of $\varphi$, 
+if $D_{\alpha_1},...,D_{\alpha_n}$ all have the same size,blahblahblah
+\end{lemma}
+
+\subsection{Introducing sorting predicates}
+
+... For each sort $S$, we introduce a predicate $p_S$, of arity one,
+so that $p_S(x)$ means ``$x$ has sort $S$''. A
+$\forall$-quantification $(\forall x:S)\ldots$ becomes $(\forall
+x)(p_S(x) \Rightarrow \ldots)$ and an $\exists$-quantification
+$(\exists x:S)\ldots$ becomes $(\exists x)(p_S(x) \land \ldots)$. For
+each function symbol we generate an axiom giving its sort; for
+example, $f : (S \times T \Rightarrow U)$ induces an axiom
+\begin{displaymath}
+(\forall x y)(p_S(x) \land p_T(y) \Rightarrow p_U(f(x, y)))
+\end{displaymath}
+
+...
+
+This translation is sound, but inefficient: we give the theorem prover
+a lot of extra work to do in proving that things are of the right
+sort. Whenever we instantiate an axiom of the form $(\forall
+x:S)P(x)$ to get $P(t)$ we get an extra proof obligation $p_S(t)$.
+
+\subsection{Introducing sorting functions}
+
+Another approach is to for each sort S introduce a function $f_S$ of
+arity one, so that for all $X$, $f_S(X)$ is equal to a constant of sort $S$. 
+
+Any variable of type $S$ is then translated to $f_S(X)$.
+
+...
+
+\subsection{Introducing stuff only when necessary}
+
+It is not always necessary to introduce a sorting predicate or function.
+
+size of domain can be increased while preserving satisfiability blahblah
+
+...not if the domain of the sort is bounded blahblah, equality occurs positively
+
+positive occurences of equality may still be fine, if it is guarded by some predicate.
+
+
+\begin{example}
+\label{ex:extension_conflict}
+\begin{eqnarray}
+ & \p(X) \\
+ & \neg \p(X) \lor X = \aconst 
+\end{eqnarray}
+\end{example}
+
+
+
+...
+
+only necessary when the formula is not monotone. Example.
+Next section blah.
+
+When is it necessary to introduce sorting predicates?
+
+Introducing predicates: satisfiability-preserving but makes the
+formula monotone.

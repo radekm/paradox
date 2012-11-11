@@ -1,0 +1,11 @@
+#!/bin/sh
+
+grep SOLVED results-120 | grep '+' | while read P JUNK
+do
+  ./equinox +RTS -N4 -RTS --time 60 $P.p > output
+  if grep Theorem output > /dev/null
+  then
+    echo "$P : `grep '|G|' output | wc -l` G's"
+  fi
+done
+

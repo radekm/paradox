@@ -1,0 +1,35 @@
+fof(a,axiom,  half(zero) = zero).
+fof(b,axiom,  half(suc(zero)) = zero).
+fof(c, axiom, ![X] : suc(X) != X).
+fof(d, axiom, ![X] : half(suc(suc(X))) = suc(half(X))).
+
+
+
+fof(f, axiom, ![X] : ((double(half(X)) = X) | (double(half(X)) = suc(X)))).
+
+
+
+
+%fof(
+
+
+%fof(g, conjecture, ![Y] : ?[X] : (double(X) = Y)).
+
+
+%fof(e, axiom, ![X,Y] : (p(X,Y) <=> (half(X) = half(Y)))).
+
+
+
+%fof(f, axiom, ![X,Y] : (p(X,Y) => (half2(X,Y) = half(X)))).
+%fof(g, axiom, ![X,Y] : ((~p(X,X)) => (half2(X,Y) = zero))).
+
+%fof(surj, conjecture, ![Z] : (?[X,Y] : (p(X,Y) & (half2(X,Y) = Z)))).
+
+
+
+
+%fof(e, axiom, ![X,Y] : ((half(X) != half(Y)) => (X != Y))).
+
+
+fof(e, conjecture, ![Y] : ?[X] : half(X) = Y).
+

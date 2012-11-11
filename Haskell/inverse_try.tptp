@@ -1,0 +1,68 @@
+cnf(axiom1, axiom,
+  f(X) != f(Y) | X = Y
+).
+
+% negation of higher-order axiom: Find a G such that forall X, G(f(X)) = X
+
+%cnf(axiom, axiom,
+%  G(f(arg(G))) != arg(G)
+%).
+
+% G(x) = eps (\y -> P(x,y))
+
+%cnf(axiom, axiom,
+%  eps (\y -> P(f(arg(P)),y)) != arg(P)
+%).
+
+% expand epsilon
+
+%cnf(axiom, axiom,
+%  P(f(arg(P)),h(P))) | ~P(f(arg(P)),X)
+%).
+
+%cnf(axiom, axiom,
+%  h(P) != arg(P)
+%).
+
+% add explicit quantification
+
+cnf(axiom2, axiom,
+  papp2(P,f(arg(P)),h(P)) | ~papp2(P,f(arg(P)),X)
+).
+
+fof(q3, question, ?[P] :
+  h(P) = arg(P)
+).
+
+% what Gs exist?
+
+cnf(axiom4, axiom,
+  ~papp2(eq(A,B),X,Y) | app2(A,X,Y) = app2(B,X,Y)
+).
+
+cnf(axiom5, axiom,
+  papp2(eq(A,B),X,Y) | app2(A,X,Y) != app2(B,X,Y)
+).
+
+%cnf(axiom6, axiom,
+%  ~papp2(not(P),X,Y) | ~papp2(P,X,Y)
+%).
+
+%cnf(axiom7, axiom,
+%  papp2(not(P),X,Y) | papp2(P,X,Y)
+%).
+
+cnf(axiom8, axiom,
+  app2(x,X,Y) = X
+).
+
+cnf(axiom9, axiom,
+  app2(y,X,Y) = Y
+).
+
+cnf(axiom10, axiom,
+  app2(f(A),X,Y) = f(app2(A,X,Y))
+).
+
+
+

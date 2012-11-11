@@ -1,0 +1,43 @@
+the whole Equinox algorithm
+
+- built-in equality
+- no remembering of substitutions
+
+in particular:
+  - how the partial model is extended
+  - how the substitutions are found
+  - correctness proof
+  - "layered soundness" -- nice!
+
+extensions:
+  - constructor functions
+  - function definitions
+  - transitive closure
+  - induction (?)
+
+mention:
+  - clause splitting
+  - clausification, arity
+  - parallel clauses
+
+ideas:
+  - structural rules (example of shifting which layer is responsible)
+
+problems:
+  - too many instances (balance)
+  - waiting for all instances before SAT is called
+  
+removed from "lagoms":
+  - unit equality
+  - extremely large problems (fact sets)
+
+-----
+
+step(true) = true
+
+(A = true => step(A) = true) => A = true
+
+step(A) = true => A = true
+
+
+

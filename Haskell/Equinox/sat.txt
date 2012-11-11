@@ -1,0 +1,168 @@
+How to find falsified instances using a SAT solver
+==================================================
+
+Normal form
+-----------
+
+First, we translate the given clause C into a normal form, where:
+
+* each negative literal consists of exactly one function symbol f,
+applied to variables, and compared to a variable:
+
+  f(X1,..,Xn) != Y
+
+* each positive literal compares two variables:
+
+  X = Y
+
+Note: we might have to keep track of which terms were subterms of other 
+terms originally (see below).
+
+The interpretation
+------------------
+
+The interpretation I consists of a finite domain D, and for each function
+symbol f:
+
+* a list of /entries/, of the form f(a1,..an) = b, with ai and b in D
+
+* a /default value/ d in D, to be used as the result in all other cases
+
+4 different kinds of instantiations
+-----------------------------------
+
+We are going to look for instantiations s that make all literals in the clause
+C false, given the interpretation I.
+
+Instantiations can have different properties:
+
+* an instantation s is /liberal/ for a function symbol f, if it triggers
+the default element of that function symbol; in other words, if there is
+a negative literal f(X1,..,Xn) != Y, and f(s(Xi),..,s(Xn)) = s(Y) is not a
+function table entry.
+
+* an instantiation s is /guessing/ for a variable occurrence X, if X in
+principle is only restricted by default function entries. Some rules:
+
+Given an instantiation, function literals are either fixing or guessing.
+Calculated as follows:
+
+1. all functional literals are set to "fixing"
+
+2. for any function literal, if it is triggered by the default entry, the 
+
+
+
+For a literal l: f(X1,..,Xn) = Y, the occurrence of Y is never guessing.
+The occurence Xi is guessing if this literal was triggered by a default
+function entry, or 
+
+An instantiation is guessing for a variable if it is guessing for all its
+occurrences.
+
+
+by any function table entry; in other words, for all negative literals
+f(X1,..,Xn) = Y, where X is an Xi, f(s(X1),..,s(Xn)) = s(Y) is not a
+function table entry, and X never appears as a Y.
+
+We are interested in 4 different kinds of instantiations:
+
+* B instantiations: no function symbol is liberal, all variables may be
+guessing
+
+* P instantiations: only predicate symbols may be liberal, no guessing
+
+* L instantiations: all symbols may be liberal, no guessing
+
+* G instantiations: all symbols may be liberal, all variables may be guessing
+
+The SAT problem
+---------------
+
++++ Variables +++
+
+For each literal l: f(X1,..,Xn) != Y, we introduce the following variables:
+
+* for each entry f(a1,..,an)=b from f, one variable "l:f(a1,..,an)=b"
+expressing that we are using that entry for this literal
+
+* one variable "l:f(_)=d", expressing that we are using the default case
+for this literal
+
+We also add constraints that express that at least one of these is true.
+
+For each variable X, we introduce the variables:
+
+* "X=a" for each a in D
+
+* "X?", representing that we had to guess X
+
+We also add constraints that express that exactly one of these is true.
+
++++ Constraints +++
+
+For each literal l: f(X1,..,Xn) != Y, we introduce the following constraints:
+
+* for each entry f(a1,..,an)=b from f, we add a constraint expressing
+
+  "l:f(a1,..,an)=b" <=> ("X1=a1" & .. & "Xn=an" & "Y=b")
+
+and also a constraint:
+
+  "l:f(a1,..,an)=b" => ~"l:f(_)=d"
+
+* for the default value d from f, we add a constraint expressing
+
+  "l:f(_)=d" => "Y=d"
+
+For each literal l: X=Y, and for each a in D, we add the following
+constraints:
+
+  ~"X=a" | ~"Y=a"
+
+For each variable X, if X does not occur in a literal f(..) != X, then
+for all literals li: fi(X1,..,Xn) = Y where X appears as an Xj:
+
+  ("l1:f1(_)=d1" & .. & "lk(fk(_))=dk") => "X?"
+
+Running the SAT-solver
+----------------------
+
+To find a B-instance, we run (using all literals li):
+
+  solve [~"l1:f1(_)=d1",..,~"lk:fk(_)=dk"]
+
+To find a P-instance, we run (using only function literals li, and all
+variables X):
+
+  solve [~"l1:f1(_)=d1",..,~"lm:fm(_)=dm", ~"X1?",..,~"Xn?"]
+
+To find an L-instance, we run (using all variables X):
+
+  solve [~"X1?",..,~"Xn?"]
+
+To find a G-instance, we run:
+
+  solve []
+
+Minimizing an instance
+----------------------
+
+Once we have found an instance, we may want to find a minimal one
+(to ensure fairness).
+
+minimize(s,V)
+1. Let the maximum used D-value in s be m.
+
+2. Partition all variables V into:
+   M := { x | s(x) = m }
+   N := { x | s(x) < m }
+
+3. Add constraints:
+   x <= m, for all x in M
+   x <  m, for all x in N
+
+4. Ask whether there exists a model where one of the x in M is not equal to m.
+   YES(s'): continue with minimize(s',V)
+   NO:      continue with minimize(s,N)
+
