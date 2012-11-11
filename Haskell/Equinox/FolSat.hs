@@ -26,8 +26,8 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import Form
 import qualified Sat
 import Name( name, prim, (%), tr )
-import List hiding ( union, insert, delete )
-import Maybe
+import Data.List hiding ( union, insert, delete )
+import Data.Maybe
 import Equinox.Fair
 import Equinox.TermSat hiding ( Lit(..) )
 import Equinox.TermSat ( Lit )
@@ -37,7 +37,7 @@ import qualified Data.Set as S
 import Data.Map( Map )
 import qualified Data.Map as M
 import Data.Maybe( isJust, fromJust )
-import IO
+import System.IO
 import Flags
 import Control.Monad
 import Equinox.PSequence

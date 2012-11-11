@@ -29,7 +29,7 @@ import Data.Set( Set )
 import qualified Data.Set as S
 import Data.Map( Map )
 import qualified Data.Map as M
-import List hiding ( insert, delete, union )
+import Data.List hiding ( insert, delete, union )
 import Paradox.AnalysisTypes
 import Flags
 

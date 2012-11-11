@@ -33,7 +33,7 @@ import Control.Concurrent.MVar
 import System.Process
 import System.Posix hiding (killProcess)
 import System.IO.Error hiding (try,catch)
-import System
+import System.Exit
 import System.IO
 
 -- An internal type that is thrown as a dynamic exception to

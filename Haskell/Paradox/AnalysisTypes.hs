@@ -45,12 +45,12 @@ import Data.STRef
   , writeSTRef
   )
 
-import Char
+import Data.Char
   ( ord
   , chr
   )
 
-import List
+import Data.List
   ( nub
   )
 

@@ -26,11 +26,11 @@ WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import Form
 import Control.Concurrent
 import Control.Exception
-import System
+import System.Exit
 import Flags
 import ParseProblem
 import Clausify
-import IO( hSetBuffering, stdout, BufferMode(..) )
+import System.IO( hSetBuffering, stdout, BufferMode(..) )
 
 import Output
 

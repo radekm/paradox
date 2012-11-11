@@ -5,14 +5,15 @@
 MINISAT = ../minisat/current-base
 INST    = ../instantiate
 OBJS    = $(MINISAT)/Solver.or $(MINISAT)/Prop.or $(INST)/MiniSatWrapper.or $(INST)/MiniSatInstantiateClause.or
-HFLAGS  = -fglasgow-exts -O2 -static -threaded
+HFLAGS  = -fglasgow-exts -O2 -static -threaded -package random
 HSAT    = -optl -static -lstdc++ -I../instantiate -I$(MINISAT) $(OBJS)
 GHC     = ghc
 
 #-- Main
 
 
-main: paradox.exe equinox.exe infinox.exe smellysox.exe
+#main: paradox.exe equinox.exe infinox.exe smellysox.exe
+main: paradox.exe equinox.exe
 
 
 paradox: paradox.exe

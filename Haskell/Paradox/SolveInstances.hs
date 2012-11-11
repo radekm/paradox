@@ -33,12 +33,12 @@ import Data.Map( Map )
 import qualified Data.Map as M
 import Data.IORef
 import Flags
-import List( sortBy, intersperse )
-import IO
+import Data.List( sortBy, intersperse )
+import System.IO
 import Paradox.Instantiate
 import Output
 import Paradox.AnalysisTypes
-import Monad
+import Control.Monad
 
 {-
 data Loc = Loc

@@ -1,7 +1,7 @@
 module Infinox.Util where
 
-import System (system)
-import IO
+import System.Process (system)
+import System.IO
 import System.Directory
 import Infinox.Timeout
 import Infinox.Conjecture

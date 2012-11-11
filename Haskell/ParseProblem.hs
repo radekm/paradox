@@ -23,13 +23,16 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 -}
 
-import System
+import System.Exit
   ( exitWith
   , ExitCode(..)
-  , getEnv
   )
 
-import Char
+import System.Environment
+  ( getEnv
+  )
+
+import Data.Char
   ( isSpace
   , isAlpha
   , isAlphaNum
@@ -38,17 +41,16 @@ import Char
   , isLower
   )
 
-import List
+import Data.List
   ( intersperse
   , (\\)
   , tails
   , nub
   )
 
-import IO
+import System.IO
   ( hFlush
   , stdout
-  , try
   )
 
 import System.IO.Error
@@ -56,7 +58,9 @@ import System.IO.Error
   , userError
   )
 
-import Monad
+import qualified System.IO.Error as IO
+
+import Control.Monad
   ( guard
   )
 

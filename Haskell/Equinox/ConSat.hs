@@ -51,10 +51,10 @@ import Data.Set( Set )
 import qualified Data.Set as S
 import Data.Map( Map )
 import qualified Data.Map as M
-import IO
+import System.IO
 import Flags
 import Control.Monad
-import List( intersperse )
+import Data.List( intersperse )
 
 import Observe
 

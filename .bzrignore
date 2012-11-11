@@ -1,4 +1,5 @@
 *.or
 *.hi
 depend.mk
-
+Haskell/paradox
+Haskell/equinox

@@ -39,19 +39,19 @@ import Paradox.SolveInstances
 
 import Output
 
-import IO
+import System.IO
   ( hFlush
   , stdout
   )
 
-import List
+import Data.List
   ( group
   , sort
   , nub
   , intersperse
   )
 
-import System
+import System.Exit
   ( exitWith
   , ExitCode(..)
   )
