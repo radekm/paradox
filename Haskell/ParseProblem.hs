@@ -78,7 +78,7 @@ readProblemWithRoots :: [FilePath] -> FilePath -> IO Problem
 readProblemWithRoots roots name =
   do putStr ("Reading '" ++ name ++ "' ... ")
      hFlush stdout
-     mtptp <- IO.try (getEnv "TPTP")
+     mtptp <- IO.tryIOError (getEnv "TPTP")
      mes <- findFile [ rt ++ nm
                      | rt <- roots
                           ++ [ case reverse tptp of
@@ -120,7 +120,7 @@ readProblemWithRoots roots name =
   findFile (name:names) =
     do -- on Cygwin, the variable TPTP expects Windows paths!
        -- putStrLn ("(trying '" ++ name ++ "'...)")
-       ees <- IO.try (readFile name)
+       ees <- IO.tryIOError (readFile name)
        case ees of
          Left _  -> findFile names
          Right s -> return (Just (name,s))
