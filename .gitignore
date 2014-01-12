@@ -1,3 +1,4 @@
+*.o
 *.or
 *.hi
 depend.mk
