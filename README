@@ -1,0 +1,6 @@
+Paradox source code
+
+Source code was downloaded from Koen Claessen's homepage
+from http://www.cse.chalmers.se/~koen/code/folkung.tar.gz
+I have removed some TPTP problems and files with results.
+Code compiles under GHC 7.6.3
